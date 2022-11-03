@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starbucks vending machine</title>
+    <link rel="stylesheet" href="src/style/reset.css">
+    <link rel="stylesheet" href="src/style/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <article id="app">
+        <h1 class="main-title">
+            <img src="src/img/logo.png" alt="starbucks" class="img-logo">
+        </h1>
+
+        <!-- 벤딩머신 -->
+        <section class="sec-vending-machine">
+            <h2 class="ir">자판기 화면</h2>
+            <ul class="list-item">
+                <li>
+                    <button class="btn-item" type="button" data-item="">
+                        <img src="src/img/Americano.jpeg" alt="" class="img-item">
+                        <strong class="txt-item">Americano</strong>
+                        <span class="txt-price">4500원</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="btn-item" type="button" data-item="">
+                        <img src="src/img/Latte.jpeg" alt="" class="img-item">
+                        <strong class="txt-item">Latte</strong>
+                        <span class="txt-price">5000원</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="btn-item" type="button" data-item="">
+                        <img src="src/img/Caramel Macchiato.jpeg" alt="" class="img-item">
+                        <strong class="txt-item">Caramel Macchiato</strong>
+                        <span class="txt-price">5900원</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="btn-item" type="button" data-item="">
+                        <img src="src/img/Malcha Latte.jpeg" alt="" class="img-item">
+                        <strong class="txt-item">Malcha Latte</strong>
+                        <span class="txt-price">6100원</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="btn-item" type="button" data-item="">
+                        <img src="src/img/Mint Tea.jpeg" alt="" class="img-item">
+                        <strong class="txt-item">Mint Tea</strong>
+                        <span class="txt-price">4500원</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="btn-item" type="button" data-item="">
+                        <img src="src/img/Hot Chocolate.jpeg" alt="" class="img-item">
+                        <strong class="txt-item">Hot Chocolate</strong>
+                        <span class="txt-price">5700원</span>
+                    </button>
+                </li>
+            </ul>
+            <section class="sec-buy-item">
+                <h3 class="ir">아이템 구매 정보</h3>
+                <div class="info-change">잔액 :
+                    <span class="txt-change">원</span>
+                </div>
+                <button class="btn-return" type="button">거스름돈 반환</button>
+
+                <label for="inpPut" class="ir">입금할 금액을 입력합니다.</label>
+                <input type="number" id="inpPut" class="inp-put" placeholder="입금액 입력">
+                <button class="btn-put" type="button">입금</button>
+
+                <ul class="list-item-select">
+                    <li>
+                        <button class="btn-select" type="button" data-item="Americano">
+                            <img src="" alt="" class="img-item">
+                            <strong class="txt-item">Americano</strong>
+                            <span class="count-num">1</span>
+                        </button>
+                    </li>
+                </ul>
+                <button class="btn-get" type="button">획득</button>
+            </section>
+        </section>
+
+        <!-- 나의 정보 -->
+        <section calss="sec-my-info">
+            <h2 class="ir">나의 정보</h2>
+            <div class="info-my-money">
+                <div class="show-my-money">소지금 :
+                    <span class="txt-mymoney">30,000 원</span>
+                </div>
+            </div>
+
+            <section class="sec-my-item">
+                <h3 class="ir">획득한 아이템</h3>
+                <strong class="txt-my-item">획득한 음료</strong>
+                <ul class="list-item-select">
+                    <li>
+                        <img src="" alt="" class="img-item">
+                        <strong class="txt-item">Americano</strong>
+                        <span class="count-num">1</span>
+                    </li>
+                </ul>
+            </section>
+        </section>
+    </article>
+</body>
+</html>

@@ -1,0 +1,135 @@
+@charset 'utf-8';
+
+/* 기본 설정 */
+:root {
+    --main-color: #007042;
+    --sub-color: #23885e;
+    --sub2-color: #F6F5EF;
+    --sub3-color: #2D2926;
+    --btn-color: #1B3C35;
+}
+
+/* 유틸리티 스타일 */
+.ir {
+    position: absolute;
+    clip-path: inset(50%);
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.img-item {
+    display: block;
+}
+
+/* 레이아웃 */
+body {
+    background-color: var(--sub-color)
+}
+
+#app {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0 28px;
+    padding-top: 260px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 500;
+}
+
+#app .main-title {
+    position: absolute;
+    width: 400px;
+    margin: 0 auto;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#app .main-title .img-logo {
+    width: 100%;
+}
+
+#app .sec-vending-machine,
+#app .sec-my-info {
+    flex-basis: 360px;
+}
+
+/* 자판기 스타일 */
+#app .sec-vending-machine {
+    padding: 30px;
+    background-color: var(--sub2-color);
+}
+
+.sec-vending-machine .list-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+}
+
+.sec-vending-machine .list-item li {
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+    /* overflow: hidden; */
+}
+
+.sec-vending-machine .btn-item {
+    display: grid;
+    grid-template-rows: 3fr 1fr 1fr;
+    width: 100%;
+    padding: 12px;
+    background-color: var(--btn-color);
+    /* align-items: center; */
+    justify-items: center;
+    /* justify-content: center; */
+}
+
+.sec-vending-machine .btn-item:hover {
+    border-radius: 10px;
+    outline: 3px solid var(--sub-color);
+}
+
+.sec-vending-machine .btn-item:active {
+    border-radius: 10px;
+    outline: 3px solid var(--main-color);
+}
+
+.sec-vending-machine .list-item .img-item {
+    width: 80px;
+    margin: 0 auto;
+}
+
+.sec-vending-machine .txt-item {
+    display: block;
+    font-size: 9px;
+    line-height: 12px;
+    color: var(--sub2-color);
+}
+
+.sec-vending-machine .txt-price {
+    display: block;
+    padding: 5px 13px;
+    font-size: 10px;
+    border: 1px solid var(--sub2-color);
+    border-radius: 50px;
+    color: var(--sub2-color);
+}
+
+/* sold-out */
+.sec-vending-machine .list-item li.sold-out::before {
+    display: block;
+    position: absolute;
+    content: '';
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    border-radius: 10px;
+    background: no-repeat center/60px 46px url(../img/Sold-out.png) rgba(0, 0, 0, 0.8);
+}
+
+.sec-vending-machine .list-item li.sold-out {
+    pointer-events: none;
+}
