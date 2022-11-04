@@ -1,6 +1,8 @@
 @charset 'utf-8';
 
+/***********/
 /* 기본 설정 */
+/***********/
 :root {
     --main-color: #007042;
     --sub-color: #23885e;
@@ -8,8 +10,9 @@
     --sub3-color: #2D2926;
     --btn-color: #1B3C35;
 }
-
+/***************/
 /* 유틸리티 스타일 */
+/***************/
 .ir {
     position: absolute;
     clip-path: inset(50%);
@@ -22,7 +25,9 @@
     display: block;
 }
 
+/**********/
 /* 레이아웃 */
+/**********/
 body {
     background-color: var(--sub-color)
 }
@@ -55,7 +60,9 @@ body {
     flex-basis: 360px;
 }
 
+/**************/
 /* 자판기 스타일 */
+/**************/
 #app .sec-vending-machine {
     padding: 30px;
     background-color: var(--sub2-color);
@@ -67,12 +74,11 @@ body {
     gap: 12px;
 }
 
-.sec-vending-machine .list-item li {
+/* .sec-vending-machine .list-item li {
     position: relative;
     border-radius: 10px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
-    /* overflow: hidden; */
-}
+} */
 
 .sec-vending-machine .btn-item {
     display: grid;
@@ -80,9 +86,11 @@ body {
     width: 100%;
     padding: 12px;
     background-color: var(--btn-color);
-    /* align-items: center; */
+    align-items: center;
     justify-items: center;
-    /* justify-content: center; */
+    /* position: relative; */
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
 }
 
 .sec-vending-machine .btn-item:hover {
@@ -132,4 +140,101 @@ body {
 
 .sec-vending-machine .list-item li.sold-out {
     pointer-events: none;
+}
+
+/**********************/
+/* 잔액, 입금, 획득 리스트 */
+/**********************/
+.sec-vending-machine .sec-buy-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.sec-buy-item .info-change,
+.sec-buy-item .inp-put,
+.sec-buy-item .list-item-select {
+    grid-column: 1/3;
+    border-radius: 5px;
+}
+
+.sec-buy-item .btn-return,
+.sec-buy-item .btn-put,
+.sec-buy-item .btn-get {
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+    font-size: 13px;
+}
+
+.sec-buy-item .info-change {
+    padding: 10px;
+    background-color: var(--sub3-color);
+    color: white;
+}
+
+.sec-buy-item .info-change .txt-change,
+.sec-my-info .txt-mymoney {
+    float: right;
+}
+
+.sec-buy-item .inp-put {
+    padding: 6px;
+    border: 1px solid var(--sub3-color);
+}
+
+
+.list-item-select {
+    height: 106px;
+    padding: 12px;
+    overflow-y: scroll;
+    border: 1px solid var(--sub3-color);
+    border-radius: 5px;
+}
+
+.list-item-select li {
+    border-radius: 5px;
+    background-color: var(--btn-color);
+}
+
+.list-item-select li+li {
+    margin-top: 6px;
+}
+
+.list-item-select .img-item,
+.list-item-select .txt-item {
+    float: left;
+}
+
+.list-item-select .btn-select {
+    width: 100%;
+    padding: 8px;
+}
+
+.list-item-select .txt-item {
+    margin-left: 10px;
+    line-height: 36px;
+    font-size: 9px;
+}
+
+.list-item-select .count-num {
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--sub2-color);
+    border-radius: 5px;
+    color: var(--sub2-color);
+}
+
+.list-item-select .img-item {
+    width: 40px;
+    height: 42px;
+}
+
+.cont-buy .btn-get {
+    background-color: #6327FE;
+    color: white;
 }
