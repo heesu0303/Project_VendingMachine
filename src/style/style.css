@@ -66,6 +66,7 @@ body {
 #app .sec-vending-machine {
     padding: 30px;
     background-color: var(--sub2-color);
+    border-radius: 10px;
 }
 
 .sec-vending-machine .list-item {
@@ -74,11 +75,11 @@ body {
     gap: 12px;
 }
 
-/* .sec-vending-machine .list-item li {
+.sec-vending-machine .list-item li {
     position: relative;
-    border-radius: 10px;
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
-} */
+    /* border-radius: 10px; */
+    /* box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4); */
+}
 
 .sec-vending-machine .btn-item {
     display: grid;
@@ -88,7 +89,7 @@ body {
     background-color: var(--btn-color);
     align-items: center;
     justify-items: center;
-    /* position: relative; */
+    position: relative;
     border-radius: 10px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
 }
@@ -124,23 +125,6 @@ body {
     color: var(--sub2-color);
 }
 
-/* sold-out */
-.sec-vending-machine .list-item li.sold-out::before {
-    display: block;
-    position: absolute;
-    content: '';
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 1;
-    border-radius: 10px;
-    background: no-repeat center/60px 46px url(../img/Sold-out.png) rgba(0, 0, 0, 0.8);
-}
-
-.sec-vending-machine .list-item li.sold-out {
-    pointer-events: none;
-}
 
 /**********************/
 /* 잔액, 입금, 획득 리스트 */
@@ -183,9 +167,11 @@ body {
     border: 1px solid var(--sub3-color);
 }
 
+/************/
 /* 획득 리스트 */
+/************/
 .list-item-select {
-    height: 106px;
+    height: 125px;
     padding: 12px;
     overflow-y: scroll;
     border: 1px solid var(--sub3-color);
@@ -193,8 +179,12 @@ body {
 }
 
 .list-item-select li {
-    /* border-radius: 5px;
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
     border: 1px solid var(--sub-color);
+    border-radius: 5px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); */
 }
 
@@ -207,11 +197,12 @@ body {
     float: left;
 }
 
-.list-item-select .btn-select {
+.list-item-select .btn-select,
+.sec-my-item .list-item-select li {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     align-items: center;
-    justify-items: start;
+    justify-items: center;
     width: 100%;
     padding: 8px;
     border: 1px solid var(--sub-color);
@@ -251,4 +242,115 @@ body {
 .sec-buy-item .btn-get {
     background-color: var(--main-color);
     color: white;
+}
+
+/****************/
+/* 나의 정보 스타일 */
+/****************/
+.sec-my-info .sec-my-money {
+    padding: 25px 27px;
+    margin-bottom: 20px;
+    background-color: var(--sub2-color);
+    border-radius: 10px;
+}
+
+.sec-my-info .txt-my-info,
+.sec-my-item .txt-my-item {
+    display: block;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 13px;
+    line-height: 20px;
+}
+
+/* 획득한 별 바 */
+
+.sec-my-info .show-my-star {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sec-my-info .bar-star {
+    width: 270px;
+    margin: 10px 0 15px;
+}
+
+.sec-my-info .bar-star {
+    appearance: none;
+}
+.sec-my-info .bar-star::-webkit-progress-bar {
+    height: 11px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: inset 3px 3px 10px #ccc;
+}
+.sec-my-info .bar-star::-webkit-progress-value {
+    border-radius: 10px;
+    background: var(--main-color);
+    /* background: -webkit-linear-gradient(to right, #fce562, #ffd700); */
+    background: linear-gradient(to right, #f4e79b, #c0a823);
+}
+
+.sec-my-info .img-star {
+    width: 30px;
+    height: 30px;
+    transition: all ease 1s;
+}
+
+.sec-my-info .img-star:hover {
+    transform: rotateY( 180deg );
+}
+
+.sec-my-info .show-my-money {
+    padding: 6px 10px;
+    background-color: var(--sub2-color);
+    border-radius: 5px;
+    line-height: 20px;
+}
+
+.show-my-money .txt-mymoney {
+    float: right;
+    font-weight: 700;
+}
+
+.sec-my-info .sec-my-item {
+    padding: 25px 27px 26px;
+    background-color: var(--sub2-color);
+    border-radius: 10px;
+}
+
+.sec-my-info .list-item-select {
+    height: 360px;
+}
+
+.sec-my-info .list-item-select li {
+    overflow: hidden;
+    padding: 8px;
+}
+
+.sec-my-info .txt-total {
+    display: block;
+    text-align: right;
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 17px;
+}
+
+
+/* sold-out */
+.sec-vending-machine .list-item li.sold-out::before {
+    display: block;
+    position: absolute;
+    content: '';
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    border-radius: 10px;
+    background: no-repeat center/60px 46px url(../img/Sold-out.png) rgba(0, 0, 0, 0.8);
+}
+
+.sec-vending-machine .list-item li.sold-out {
+    pointer-events: none;
 }
