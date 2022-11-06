@@ -1,0 +1,56 @@
+[
+    {
+        "name": "Espresso",
+        "cost": 4000,
+        "img": "Espresso.jpeg",
+        "count": 5
+    },
+    {
+        "name": "Americano",
+        "cost": 4500,
+        "img": "Americano.jpeg",
+        "count": 5
+    },
+    {
+        "name": "Latte",
+        "cost": 5000,
+        "img": "Latte.jpeg",
+        "count": 5
+    },
+    {
+        "name": "Cappuccino",
+        "cost": 5000,
+        "img": "Cappuccino.jpeg",
+        "count": 5
+    },
+    {
+        "name": "Caramel Macchiato",
+        "cost": 5900,
+        "img": "Caramel_Macchiato.jpeg",
+        "count": 5
+    },
+    {
+        "name": "Malcha Latte",
+        "cost": 6100,
+        "img": "Malcha_Latte.jpeg",
+        "count": 5
+    },
+    {
+        "name": "Mint Tea",
+        "cost": 4500,
+        "img": "Mint_Tea.jpeg",
+        "count": 5
+    },
+    {
+        "name": "Earl Grey Tea",
+        "cost": 4500,
+        "img": "Earl_Grey_Tea.jpeg",
+        "count": 5
+    },
+    {
+        "name": "Hot Chocolate",
+        "cost": 5700,
+        "img": "Hot_Chocolate.jpeg",
+        "count": 5
+    }
+]
