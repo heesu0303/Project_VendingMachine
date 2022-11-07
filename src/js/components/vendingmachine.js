@@ -11,9 +11,13 @@ class VendingMachine {
 
         const myInfo = document.querySelector('.sec-my-info');
         this.barStar = myInfo.querySelector('.bar-star');
+        this.imgStar = myInfo.querySelector('.img-star')
         this.myMoney = myInfo.querySelector('.txt-mymoney');
         this.gotList = myInfo.querySelector('.list-item-select');
         this.totalPrice = myInfo.querySelector('.txt-total');
+
+        this.modal = document.querySelector('#modal');
+        this.btnClose = document.querySelector('.btn-close');
     }
 
     setup() {
@@ -111,7 +115,7 @@ class VendingMachine {
                         warning.textContent = '해당 상품은 품절입니다.';
                         warning.classList.add('ir');
                         // em 요소를 버튼 요소의 앞에 배치 -> 스크린리더가 먼저 읽도록
-                        targetItem.parentElement.insetBefore(warning, targetItem);
+                        targetItem.parentElement.insertBefore(warning, targetItem);
                     }
                 } else {
                     alert('잔액이 부족합니다. 돈을 입금해주세요.');
@@ -125,7 +129,8 @@ class VendingMachine {
             let isGot = false;
             let total = 0;
             let star = 0;
-            
+            let myItemCount = 0;
+        
             // 장바구니와 이미 구입한 목록 비교
             for (const basketItem of this.basketList.querySelectorAll('li')) {
                 isGot = false;
@@ -144,20 +149,44 @@ class VendingMachine {
                 // 처음 구매한 아이템이라면
                 if (!isGot) {
                     this.gotList.appendChild(basketItem);
-                    this.barStar.setAttribute('value', `${star += 10}`);
                 }
             }
-
+            
+            // 별
+            this.gotList.querySelectorAll('.count-num').forEach((count) => {
+                myItemCount += parseInt(count.textContent);
+            })
+            this.barStar.setAttribute('value', `${myItemCount * 10}`);
+    console.log(myItemCount);
+            
+            if (`${myItemCount * 10}` >= 100) {
+    console.log(myItemCount);
+                this.imgStar.classList.add('star-active');
+                setTimeout(() => {
+                    modal.style.display = 'block';
+                    myItemCount -= 10;
+                    this.barStar.setAttribute('value', `${myItemCount * 10}`);
+                    this.gotList.innerHTML = null;
+                }, 1000);
+            }
+            
             // 장바구니 목록 초기화
             this.basketList.innerHTML = null;
-
+            
             // 구매한 아이템 리스트를 순환하며 총 금액 계산
             this.gotList.querySelectorAll('li').forEach((gotItem) => {
                 total += gotItem.dataset.cost * parseInt(gotItem.querySelector('.count-num').textContent);
             });
-
+            
             this.totalPrice.textContent = `총 금액 : ${new Intl.NumberFormat().format(total)} 원`;
         })
+
+        // 모달창 닫은 후 아이템 무료 적용
+        this.btnClose.addEventListener('click', (event) => {
+            console.log('close');
+            modal.style.display = 'none';
+        })
+
     }
 }
 

@@ -77,8 +77,6 @@ body {
 
 .sec-vending-machine .list-item li {
     position: relative;
-    /* border-radius: 10px; */
-    /* box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4); */
 }
 
 .sec-vending-machine .btn-item {
@@ -200,7 +198,7 @@ body {
 
 .list-item-select .btn-select:hover {
     outline: 2px solid var(--main-color);
-    background-color: rgb(251, 245, 236);
+    border-radius: 5px;
 }
 
 .list-item-select .img-item {
@@ -283,11 +281,11 @@ body {
 .sec-my-info .img-star {
     width: 30px;
     height: 30px;
-    transition: all ease 1s;
 }
 
-.sec-my-info .img-star:hover {
-    transform: rotateY( 180deg );
+.sec-my-info .star-active {
+    transition: all ease 2s;
+    transform: rotateY(360deg);
 }
 
 .sec-my-info .show-my-money {
@@ -314,7 +312,6 @@ body {
 
 .sec-my-info .list-item-select li {
     overflow: hidden;
-    padding: 8px;
 }
 
 .sec-my-info .txt-total {
@@ -344,6 +341,65 @@ body {
     pointer-events: none;
 }
 
+
+/* 모달창 */
+#modal {
+    position: fixed;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+}
+
+#modal .modal_wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    height: 570px;
+    background-color: var(--sub2-color);
+    border: 2px solid var(--sub3-color);
+    border-radius: 10px;
+}
+
+#modal .tit-modal {
+    font-size: 20px;
+}
+
+#modal .cont-modal {
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#modal .img-item {
+    width: 70%;
+    border-radius: 50%;
+    margin: 30px 0;
+}
+
+#modal .btn-close {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    opacity: 40%;
+}
+
+#modal .img-close {
+    width: 130px;
+}
+
+
+
+@media only screen and (max-width: 830px) {
+    .sec-my-info {
+        padding-top: 30px;
+    }
+}
+
 @media only screen and (min-width: 320px) and (max-width: 480px) and (-webkit-min-device-pixel-ratio:2) { 
     #app .sec-vending-machine,
     #app .sec-my-info {
@@ -357,11 +413,12 @@ body {
         gap: 12px;
     }
 
+    .my-basket li {
+        width: 200px;
+    }
+
     .sec-my-info {
         padding-top: 30px;
     }
 
-    .list-item-select .btn-select {
-        width: 180px;
-    }
 }
