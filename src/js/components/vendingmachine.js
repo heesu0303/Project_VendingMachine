@@ -18,6 +18,8 @@ class VendingMachine {
 
         this.modal = document.querySelector('#modal');
         this.btnClose = document.querySelector('.btn-close');
+
+        this.myItemCount = 0;
     }
 
     setup() {
@@ -128,9 +130,12 @@ class VendingMachine {
         this.btnGet.addEventListener('click', (event) => {
             let isGot = false;
             let total = 0;
-            let star = 0;
-            let myItemCount = 0;
-        
+
+            // 별 추가를 위한 아이템 카운트
+            this.basketList.querySelectorAll('.count-num').forEach((count) => {
+                this.myItemCount += parseInt(count.textContent);
+            })
+            
             // 장바구니와 이미 구입한 목록 비교
             for (const basketItem of this.basketList.querySelectorAll('li')) {
                 isGot = false;
@@ -142,7 +147,6 @@ class VendingMachine {
                         // 구매한 아이템 리스트의 아이템 수량 업데이트
                         gotItemCount.textContent = parseInt(gotItemCount.textContent) + parseInt(basketItem.querySelector('.count-num').textContent);
                         isGot = true;
-                        this.barStar.setAttribute('value', `${star}`);
                         break;
                     }
                 }
@@ -151,21 +155,17 @@ class VendingMachine {
                     this.gotList.appendChild(basketItem);
                 }
             }
-            
-            // 별
-            this.gotList.querySelectorAll('.count-num').forEach((count) => {
-                myItemCount += parseInt(count.textContent);
-            })
-            this.barStar.setAttribute('value', `${myItemCount * 10}`);
-    console.log(myItemCount);
-            
-            if (`${myItemCount * 10}` >= 100) {
-    console.log(myItemCount);
+
+            // 별 현황 설정
+            this.barStar.setAttribute('value', `${this.myItemCount * 10}`);
+
+            if (this.myItemCount >= 10) {
+                console.log(this.myItemCount);
                 this.imgStar.classList.add('star-active');
                 setTimeout(() => {
                     modal.style.display = 'block';
-                    myItemCount -= 10;
-                    this.barStar.setAttribute('value', `${myItemCount * 10}`);
+                    this.myItemCount -= 10;
+                    this.barStar.setAttribute('value', `${this.myItemCount * 10}`);
                     this.gotList.innerHTML = null;
                 }, 1000);
             }
@@ -183,10 +183,19 @@ class VendingMachine {
 
         // 모달창 닫은 후 아이템 무료 적용
         this.btnClose.addEventListener('click', (event) => {
-            console.log('close');
             modal.style.display = 'none';
-        })
 
+            for (const item of this.itemList.querySelectorAll('button')) {
+                if (item.dataset.item === "Americano") {
+                    console.log(this.itemList);
+                    item.dataset.cost = 0;
+                    console.log(item.dataset.cost)
+
+
+                }
+            }
+
+        })
     }
 }
 
