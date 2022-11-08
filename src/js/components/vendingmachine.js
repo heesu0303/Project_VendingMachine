@@ -20,6 +20,7 @@ class VendingMachine {
         this.btnClose = document.querySelector('.btn-close');
 
         this.myItemCount = 0;
+        // this.count = 0;
     }
 
     setup() {
@@ -102,7 +103,6 @@ class VendingMachine {
                     };
 
                     // 해당 아이템을 처음 선택했을 경우
-                    // !isSelect 과 같은 의미
                     if (!isSelect) {
                         this.basketItemGenerator(targetItem);
                     }
@@ -156,7 +156,7 @@ class VendingMachine {
                 }
             }
 
-            // 별 현황 설정
+            // 별 프로그래스바 설정
             this.barStar.setAttribute('value', `${this.myItemCount * 10}`);
 
             if (this.myItemCount >= 10) {
@@ -173,28 +173,45 @@ class VendingMachine {
             // 장바구니 목록 초기화
             this.basketList.innerHTML = null;
             
+            // 모달창 닫은 후 아이템 무료 적용
+            this.btnClose.addEventListener('click', (event) => {
+                let count = 0;
+                // 모달창 닫기
+                modal.style.display = 'none';
+    
+                // 아메리카노 무료로 변경
+                for (const item of this.itemList.querySelectorAll('button')) {
+                    if (item.dataset.item === "Americano") {
+                        item.dataset.cost = 0;
+                        console.log(item.dataset.item, item.dataset.cost);
+                        item.querySelector('.txt-price').textContent = 'Free';
+    
+                        item.addEventListener('click', (event) => {
+                            console.log('아메리카노 클릭!');
+                            count++;
+                            console.log(count);
+                            if (count >= 1) {
+                                item.dataset.cost = 4500;
+                                item.querySelector('.txt-price').textContent = 4500;
+                                console.log(item.dataset.cost);
+                            }
+                        })
+                    }
+                }
+            })
+
+            // 기능을 잘 분리하자..
+            // free 를 만들어서 적용해보자! 
+
             // 구매한 아이템 리스트를 순환하며 총 금액 계산
             this.gotList.querySelectorAll('li').forEach((gotItem) => {
+                console.log(gotItem.dataset.cost); // 0원..
+
+
                 total += gotItem.dataset.cost * parseInt(gotItem.querySelector('.count-num').textContent);
             });
             
             this.totalPrice.textContent = `총 금액 : ${new Intl.NumberFormat().format(total)} 원`;
-        })
-
-        // 모달창 닫은 후 아이템 무료 적용
-        this.btnClose.addEventListener('click', (event) => {
-            modal.style.display = 'none';
-
-            for (const item of this.itemList.querySelectorAll('button')) {
-                if (item.dataset.item === "Americano") {
-                    console.log(this.itemList);
-                    item.dataset.cost = 0;
-                    console.log(item.dataset.cost)
-
-
-                }
-            }
-
         })
     }
 }

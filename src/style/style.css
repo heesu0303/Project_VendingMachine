@@ -345,7 +345,7 @@ body {
 /* 모달창 */
 #modal {
     position: fixed;
-    display: block;
+    display: none;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
