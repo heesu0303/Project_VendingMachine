@@ -29,7 +29,7 @@
 /* 레이아웃 */
 /**********/
 body {
-    background-color: var(--sub-color)
+    background-color: var(--sub-color);
 }
 
 #app {
