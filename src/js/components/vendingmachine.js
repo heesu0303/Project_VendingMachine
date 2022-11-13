@@ -11,7 +11,7 @@ class VendingMachine {
 
         const myInfo = document.querySelector('.sec-my-info');
         this.barStar = myInfo.querySelector('.bar-star');
-        this.imgStar = myInfo.querySelector('.img-star')
+        this.imgStar = myInfo.querySelector('.img-star');
         this.myMoney = myInfo.querySelector('.txt-mymoney');
         this.gotList = myInfo.querySelector('.list-item-select');
         this.totalPrice = myInfo.querySelector('.txt-total');
@@ -20,7 +20,7 @@ class VendingMachine {
         this.btnClose = document.querySelector('.btn-close');
 
         this.myItemCount = 0;
-        this.isFree = false;
+        this.count = 0;
         this.freeCnt = 0;
     }
 
@@ -29,12 +29,11 @@ class VendingMachine {
     }
 
     // 선택한 아이템 목록 생성
-    basketItemGenerator (target) {
+    basketItemGenerator(target) {
         const basketItem = document.createElement('li');
         basketItem.dataset.item = target.dataset.item;
         basketItem.dataset.cost = target.dataset.cost;
-        basketItem.innerHTML = 
-        `
+        basketItem.innerHTML = `
             <button class="btn-select" type="button">
                 <img src="src/img/${target.dataset.img}" alt="" class="img-item">
                 <strong class="txt-item">${target.dataset.item}</strong>
@@ -43,7 +42,6 @@ class VendingMachine {
         `;
         this.basketList.appendChild(basketItem);
     }
-
 
     // 이벤트 활성화
     addEvent() {
@@ -63,8 +61,7 @@ class VendingMachine {
                 }
                 this.inputCost.value = null;
             }
-        })
-
+        });
 
         // 2. 거스름돈 반환 버튼 기능
         this.btnReturn.addEventListener('click', (event) => {
@@ -75,8 +72,7 @@ class VendingMachine {
                 this.myMoney.textContent = new Intl.NumberFormat().format(changesVal + myMoneyVal) + ' 원';
                 this.changes.textContent = '원';
             }
-        })
-
+        });
 
         // 3. 자판기 메뉴 기능
         const btnsItem = this.itemList.querySelectorAll('button');
@@ -101,7 +97,7 @@ class VendingMachine {
                             isSelect = true;
                             break;
                         }
-                    };
+                    }
 
                     // 해당 아이템을 처음 선택했을 경우
                     if (!isSelect) {
@@ -123,9 +119,8 @@ class VendingMachine {
                 } else {
                     alert('잔액이 부족합니다. 돈을 입금해주세요.');
                 }
-            })
-        })
-
+            });
+        });
 
         // 4. 획득 버튼 기능
         this.btnGet.addEventListener('click', (event) => {
@@ -135,21 +130,21 @@ class VendingMachine {
             // 별 추가를 위한 아이템 카운트
             this.basketList.querySelectorAll('.count-num').forEach((count) => {
                 this.myItemCount += parseInt(count.textContent);
-            })
-            
+            });
+
             // 장바구니와 이미 구입한 목록 비교
             for (const basketItem of this.basketList.querySelectorAll('li')) {
                 isGot = false;
                 for (const gotItem of this.gotList.querySelectorAll('li')) {
                     let gotItemCount = gotItem.querySelector('.count-num');
-                    
-                    
+
                     // 구매한 아이템이 이미 구매한 아이템 리스트에 존재하는지 확인
                     if (basketItem.dataset.item === gotItem.dataset.item) {
                         // 구매한 아이템 리스트의 아이템 수량 업데이트
                         gotItemCount.textContent = parseInt(gotItemCount.textContent) + parseInt(basketItem.querySelector('.count-num').textContent);
                         isGot = true;
                         if (gotItem.dataset.item === 'Americano') {
+                            console.log('아메리카노 무료:' + gotItem.dataset.cost);
                             gotItem.dataset.cost = 4500;
                         }
                         break;
@@ -164,46 +159,47 @@ class VendingMachine {
             // 별 프로그래스바 설정
             this.barStar.setAttribute('value', `${this.myItemCount * 10}`);
 
-            // 별 10개 달성시 
+            // 별 10개 달성시
             if (this.myItemCount >= 10) {
+                this.freeCnt = Math.floor(this.myItemCount / 10);
                 this.imgStar.classList.add('star-active');
                 setTimeout(() => {
                     modal.style.display = 'block';
-                    this.myItemCount -= 10;
+                    this.myItemCount -= 10 * this.freeCnt;
                     this.barStar.setAttribute('value', `${this.myItemCount * 10}`);
                     this.gotList.innerHTML = null;
                 }, 1000);
             }
-            
+
             // 장바구니 목록 초기화
             this.basketList.innerHTML = null;
-            
+
             // 모달창 닫은 후 아이템 무료 적용
             this.btnClose.addEventListener('click', (event) => {
-                let count = 0;
                 // 모달창 닫기
                 modal.style.display = 'none';
-                this.freeCnt++;
-    
+
                 // 아메리카노 무료로 변경
                 for (const item of this.itemList.querySelectorAll('button')) {
-                    this.isFree = false;
-                    if (item.dataset.item === "Americano") {
-                        this.isFree = true;
+                    if (item.dataset.item === 'Americano' && this.freeCnt !== 0) {
                         item.dataset.cost = 0;
+                        console.log('무료쿠폰 클릭전 : '+this.freeCnt);
                         item.querySelector('.txt-price').textContent = 'Free';
-    
+
                         item.addEventListener('click', (event) => {
-                            count++;
-                            if (count >= 1) {
-                                this.isFree = false;
+                            this.freeCnt--;
+                            console.log('무료쿠폰 클릭후 : '+this.freeCnt);
+                            if (this.freeCnt === 0) {
                                 item.dataset.cost = 4500;
                                 item.querySelector('.txt-price').textContent = 4500;
                             }
-                        })
+                        });
                     }
                 }
-            })
+            });
+
+            // 기능을 잘 분리하자..
+            // free 를 만들어서 적용해보자!
 
             // 구매한 아이템 리스트를 순환하며 총 금액 계산
             this.gotList.querySelectorAll('li').forEach((gotItem) => {
@@ -211,14 +207,36 @@ class VendingMachine {
 
                 if (gotItem.dataset.item === 'Americano') {
                     gotItem.dataset.cost = 4500;
-                    cntItem -= this.freeCnt;
+                    if (cntItem >= this.freeCnt) {
+                        cntItem -= this.freeCnt;
+                    } else {
+                        cntItem = 0;
+                    }
                 }
-                
+                // if (gotItem.dataset.item === 'Americano' && cntItem >= 2) {
+                //     console.log('cntItem1: ' + cntItem);
+                //     gotItem.dataset.cost = 4500;
+                //     //도영추가
+                //     let 프리카운트빼기전 = cntItem;
+                //     cntItem -= this.freeCnt;
+                //     if (프리카운트빼기전 >= this.freeCnt) {
+                //         this.freeCnt = 0;
+                //     } else {
+                //         this.freeCnt -= 프리카운트빼기전;
+                //     }
+
+                //     console.log(cntItem, this.freeCnt);
+                // } else if (gotItem.dataset.item === 'Americano' && cntItem === 1) {
+                //     console.log('cntItem2: ' + cntItem);
+                //     //도영추가
+                //     this.freeCnt -= 1;
+                // }
+
                 total += gotItem.dataset.cost * cntItem;
             });
-            
+
             this.totalPrice.textContent = `총 금액 : ${new Intl.NumberFormat().format(total)} 원`;
-        })
+        });
     }
 }
 
