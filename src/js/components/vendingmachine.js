@@ -1,3 +1,5 @@
+let freeCoupon = 0;
+
 class VendingMachine {
     constructor() {
         const vMachine = document.querySelector('.sec-vending-machine');
@@ -143,10 +145,9 @@ class VendingMachine {
                         // 구매한 아이템 리스트의 아이템 수량 업데이트
                         gotItemCount.textContent = parseInt(gotItemCount.textContent) + parseInt(basketItem.querySelector('.count-num').textContent);
                         isGot = true;
-                        if (gotItem.dataset.item === 'Americano') {
-                            console.log('아메리카노 무료:' + gotItem.dataset.cost);
-                            gotItem.dataset.cost = 4500;
-                        }
+                        // if (gotItem.dataset.item === 'Americano') {
+                        //     gotItem.dataset.cost = 4500;
+                        // }
                         break;
                     }
                 }
@@ -162,6 +163,7 @@ class VendingMachine {
             // 별 10개 달성시
             if (this.myItemCount >= 10) {
                 this.freeCnt = Math.floor(this.myItemCount / 10);
+                freeCoupon = this.freeCnt;
                 this.imgStar.classList.add('star-active');
                 setTimeout(() => {
                     modal.style.display = 'block';
@@ -181,21 +183,28 @@ class VendingMachine {
 
                 // 아메리카노 무료로 변경
                 for (const item of this.itemList.querySelectorAll('button')) {
-                    if (item.dataset.item === 'Americano' && this.freeCnt !== 0) {
+                    if (item.dataset.item === 'Americano') {
                         item.dataset.cost = 0;
                         console.log('무료쿠폰 클릭전 : '+this.freeCnt);
                         item.querySelector('.txt-price').textContent = 'Free';
 
-                        item.addEventListener('click', (event) => {
+                        this.btnGet.addEventListener('click', (event) => {
                             this.freeCnt--;
-                            console.log('무료쿠폰 클릭후 : '+this.freeCnt);
+                            if (this.freeCnt < 0) {
+                                this.freeCnt = 0;
+                            }
+                            console.log(this.freeCnt);
                             if (this.freeCnt === 0) {
                                 item.dataset.cost = 4500;
                                 item.querySelector('.txt-price').textContent = 4500;
+                                console.log('쿠폰 0일 때 커피 가격 : '+item.dataset.cost);
                             }
+                            console.log('커피클릭시 쿠폰수:'+this.freeCnt);
+                            console.log('원래 쿠폰수:'+freeCoupon);
                         });
                     }
                 }
+
             });
 
             // 기능을 잘 분리하자..
@@ -207,8 +216,10 @@ class VendingMachine {
 
                 if (gotItem.dataset.item === 'Americano') {
                     gotItem.dataset.cost = 4500;
-                    if (cntItem >= this.freeCnt) {
-                        cntItem -= this.freeCnt;
+                    if (cntItem >= freeCoupon) {
+                        cntItem -= freeCoupon;
+                        console.log('계산 총 수량:' + cntItem);
+                        console.log('계산 총 쿠폰수:' + this.freeCnt);
                     } else {
                         cntItem = 0;
                     }
