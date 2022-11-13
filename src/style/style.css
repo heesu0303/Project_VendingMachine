@@ -123,6 +123,18 @@ body {
     color: var(--sub2-color);
 }
 
+.sec-vending-machine .freeIcon::after {
+    content: attr(data-freecnt);
+    display: inline-block;
+    position: absolute;
+    top: 120px;
+    right: 25px;
+    width: 12px;
+    height: 12px;
+    padding: 1px;
+    border-radius: 50%;
+    background-color: red;
+}
 
 /**********************/
 /* 잔액, 입금, 획득 리스트 */

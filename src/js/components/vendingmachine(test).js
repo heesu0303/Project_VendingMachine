@@ -1,4 +1,27 @@
-let freeCoupon = 0;
+// let myItemCount = 0;
+let freeCnt = 0;
+
+// function coupon() {
+//     if (커피구매개수가 10개 이상이면) {
+//         커피구매개수 -= 10;
+//         꽁짜커피쿠폰++;
+//     }
+// }
+
+// function ddd() {
+//     if (꽁짜커피쿠폰이 있을 때) {
+//         아이템리스트의 가격을 free로 바꿔준다.
+//     }
+// }
+
+// function dd() {
+//     if (구매한커피양 > 커피쿠폰) {
+//         변수 = 구매한커피양 - 커피쿠폰개수
+//         커피쿠폰 = 0
+//         총금액 = 가격 * 변수
+//     }
+// }
+
 
 class VendingMachine {
     constructor() {
@@ -13,7 +36,7 @@ class VendingMachine {
 
         const myInfo = document.querySelector('.sec-my-info');
         this.barStar = myInfo.querySelector('.bar-star');
-        this.imgStar = myInfo.querySelector('.img-star');
+        this.imgStar = myInfo.querySelector('.img-star')
         this.myMoney = myInfo.querySelector('.txt-mymoney');
         this.gotList = myInfo.querySelector('.list-item-select');
         this.totalPrice = myInfo.querySelector('.txt-total');
@@ -22,7 +45,8 @@ class VendingMachine {
         this.btnClose = document.querySelector('.btn-close');
 
         this.myItemCount = 0;
-        this.freeCnt = 0;
+        // this.isFree = false;
+        // this.freeCnt = 0;
     }
 
     setup() {
@@ -30,11 +54,12 @@ class VendingMachine {
     }
 
     // 선택한 아이템 목록 생성
-    basketItemGenerator(target) {
+    basketItemGenerator (target) {
         const basketItem = document.createElement('li');
         basketItem.dataset.item = target.dataset.item;
         basketItem.dataset.cost = target.dataset.cost;
-        basketItem.innerHTML = `
+        basketItem.innerHTML = 
+        `
             <button class="btn-select" type="button">
                 <img src="src/img/${target.dataset.img}" alt="" class="img-item">
                 <strong class="txt-item">${target.dataset.item}</strong>
@@ -43,6 +68,7 @@ class VendingMachine {
         `;
         this.basketList.appendChild(basketItem);
     }
+
 
     // 이벤트 활성화
     addEvent() {
@@ -62,7 +88,8 @@ class VendingMachine {
                 }
                 this.inputCost.value = null;
             }
-        });
+        })
+
 
         // 2. 거스름돈 반환 버튼 기능
         this.btnReturn.addEventListener('click', (event) => {
@@ -73,7 +100,8 @@ class VendingMachine {
                 this.myMoney.textContent = new Intl.NumberFormat().format(changesVal + myMoneyVal) + ' 원';
                 this.changes.textContent = '원';
             }
-        });
+        })
+
 
         // 3. 자판기 메뉴 기능
         const btnsItem = this.itemList.querySelectorAll('button');
@@ -98,7 +126,7 @@ class VendingMachine {
                             isSelect = true;
                             break;
                         }
-                    }
+                    };
 
                     // 해당 아이템을 처음 선택했을 경우
                     if (!isSelect) {
@@ -120,30 +148,35 @@ class VendingMachine {
                 } else {
                     alert('잔액이 부족합니다. 돈을 입금해주세요.');
                 }
-            });
-        });
+            })
+        })
+
 
         // 4. 획득 버튼 기능
         this.btnGet.addEventListener('click', (event) => {
             let isGot = false;
             let total = 0;
 
-            // 별 추가를 위한 아이템 카운트
+            // 별 추가를 위한 아이템 카운트 -> 함수로 만들어보기
             this.basketList.querySelectorAll('.count-num').forEach((count) => {
                 this.myItemCount += parseInt(count.textContent);
-            });
-
+            })
+            
             // 장바구니와 이미 구입한 목록 비교
             for (const basketItem of this.basketList.querySelectorAll('li')) {
                 isGot = false;
                 for (const gotItem of this.gotList.querySelectorAll('li')) {
                     let gotItemCount = gotItem.querySelector('.count-num');
-
+                    
+                    
                     // 구매한 아이템이 이미 구매한 아이템 리스트에 존재하는지 확인
                     if (basketItem.dataset.item === gotItem.dataset.item) {
                         // 구매한 아이템 리스트의 아이템 수량 업데이트
                         gotItemCount.textContent = parseInt(gotItemCount.textContent) + parseInt(basketItem.querySelector('.count-num').textContent);
                         isGot = true;
+                        if (gotItem.dataset.item === 'Americano') {
+                            gotItem.dataset.cost = 4500;
+                        }
                         break;
                     }
                 }
@@ -158,74 +191,85 @@ class VendingMachine {
 
             // 별 10개 달성시
             if (this.myItemCount >= 10) {
-                this.freeCnt = Math.floor(this.myItemCount / 10);
-                freeCoupon = this.freeCnt;
+                freeCnt = Math.floor(this.myItemCount / 10);
+                console.log('쿠폰개수:'+freeCnt);
                 this.imgStar.classList.add('star-active');
-                console.log('별10개 달성시 쿠폰개수:'+this.freeCnt);
                 setTimeout(() => {
                     modal.style.display = 'block';
-                    this.myItemCount -= 10 * this.freeCnt;
+                    this.myItemCount -= freeCnt * 10;
                     this.barStar.setAttribute('value', `${this.myItemCount * 10}`);
                     this.gotList.innerHTML = null;
                 }, 1000);
-                console.log('별10개달성시 아이템카운트:'+this.myItemCount);
             }
-
+            
             // 장바구니 목록 초기화
             this.basketList.innerHTML = null;
-
+            
             // 모달창 닫은 후 아이템 무료 적용
             this.btnClose.addEventListener('click', (event) => {
+                let count = 0;
                 // 모달창 닫기
                 modal.style.display = 'none';
-
+    
                 // 아메리카노 무료로 변경
                 for (const item of this.itemList.querySelectorAll('button')) {
-                    if (item.dataset.item === 'Americano') {
-                        let itemPrice = item.querySelector('.txt-price');
+                    // this.isFree = false;
+                    if (item.dataset.item === "Americano") {
+                        // this.isFree = true;
                         item.dataset.cost = 0;
-                        itemPrice.textContent = 'Free';
-                        itemPrice.classList.add('freeIcon');
-                        item.querySelector('.freeIcon').setAttribute('data-freecnt', this.freeCnt);
-
+                        item.querySelector('.txt-price').textContent = 'Free';
+    
                         item.addEventListener('click', (event) => {
-                            item.querySelector('.freeIcon').setAttribute('data-freecnt', this.freeCnt-1);
-                            this.freeCnt--;
-                            if (this.freeCnt < 0) {
-                                this.freeCnt = 0;
-                            }
-                            console.log(this.freeCnt);
-                            if (this.freeCnt === 0) {
-                                itemPrice.classList.remove('freeIcon');
+                            count++;
+                            if (count >= 1) {
+                                // this.isFree = false;
                                 item.dataset.cost = 4500;
-                                itemPrice.textContent = 4500;
+                                item.querySelector('.txt-price').textContent = 4500;
                             }
-                        });
+                        })
                     }
                 }
-            });
+            })
 
+            // 음료를 한꺼번에 10개 이상 구매했을 때, 무료 음료 금액이 적용됨.
+            // 음료를 몇 번에 걸쳐 10개 이상을 구매한 후 무료 음료를 얻은 후, 라떼 한 잔을 구매하고, 무료 아메리카노를 구매했을 때 총 금액 이상 발생
+            // 라떼(5000원) -> 무료 아메리카노(0원) => 총 금액: -4000원
+            // 무료 아메리카노 구매 => 총 금액: -9000원
+
+            // 획득 버튼을 누르면 만약 10개 이상이면 10개를 빼고 쿠폰을 만들고 잔액을 남김.
+            
             // 구매한 아이템 리스트를 순환하며 총 금액 계산
             this.gotList.querySelectorAll('li').forEach((gotItem) => {
                 let cntItem = parseInt(gotItem.querySelector('.count-num').textContent);
-
-                if (gotItem.dataset.item === 'Americano') {
-                    gotItem.dataset.cost = 4500;
-                    if (cntItem >= freeCoupon) {
-                        cntItem -= freeCoupon;
+        
+                if (gotItem.dataset.item === 'Americano' && cntItem >= 2) {
+                    console.log('cntItem1: ' + cntItem);
+                    if (freeCnt === 0) {
+                        gotItem.dataset.cost = 4500;
                     } else {
-                        cntItem = 0;
+                        gotItem.dataset.cost = freeItem(cntItem, freeCnt);
                     }
-                }
 
+                    cntItem -= 1;
+                    freeCnt -= 1;
+                    console.log(cntItem, freeCnt);
+                } else if (gotItem.dataset.item === 'Americano' && cntItem === 1) {
+                    console.log('cntItem2: ' + cntItem);
+                    cntItem = freeCnt;
+                }
+                
                 total += gotItem.dataset.cost * cntItem;
             });
-
+            
             this.totalPrice.textContent = `총 금액 : ${new Intl.NumberFormat().format(total)} 원`;
-        });
+        })
     }
 }
 
-
+function freeItem(cntItem, freeCnt) {
+    if ((cntItem - freeCnt) > 0) {
+        return parseInt((cntItem - freeCnt) * 4500);
+    }
+}
 
 export default VendingMachine;
