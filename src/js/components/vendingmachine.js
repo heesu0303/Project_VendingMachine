@@ -161,14 +161,12 @@ class VendingMachine {
                 this.freeCnt = Math.floor(this.myItemCount / 10);
                 freeCoupon = this.freeCnt;
                 this.imgStar.classList.add('star-active');
-                console.log('별10개 달성시 쿠폰개수:'+this.freeCnt);
                 setTimeout(() => {
                     modal.style.display = 'block';
                     this.myItemCount -= 10 * this.freeCnt;
                     this.barStar.setAttribute('value', `${this.myItemCount * 10}`);
                     this.gotList.innerHTML = null;
                 }, 1000);
-                console.log('별10개달성시 아이템카운트:'+this.myItemCount);
             }
 
             // 장바구니 목록 초기화
@@ -178,6 +176,7 @@ class VendingMachine {
             this.btnClose.addEventListener('click', (event) => {
                 // 모달창 닫기
                 modal.style.display = 'none';
+                console.log('토탈쿠폰개수:'+freeCoupon);
 
                 // 아메리카노 무료로 변경
                 for (const item of this.itemList.querySelectorAll('button')) {
@@ -189,12 +188,14 @@ class VendingMachine {
                         item.querySelector('.freeIcon').setAttribute('data-freecnt', this.freeCnt);
 
                         item.addEventListener('click', (event) => {
-                            item.querySelector('.freeIcon').setAttribute('data-freecnt', this.freeCnt-1);
-                            this.freeCnt--;
+                            if (this.freeCnt !== 0) {
+                                item.querySelector('.freeIcon').setAttribute('data-freecnt', this.freeCnt-1);
+                            }
+                            this.freeCnt -= 1;
                             if (this.freeCnt < 0) {
                                 this.freeCnt = 0;
                             }
-                            console.log(this.freeCnt);
+                            console.log('쿠폰카운트:'+this.freeCnt);
                             if (this.freeCnt === 0) {
                                 itemPrice.classList.remove('freeIcon');
                                 item.dataset.cost = 4500;
@@ -204,6 +205,21 @@ class VendingMachine {
                     }
                 }
             });
+
+            // 5. 장바구니 아이템 삭제 기능
+            // const basketItems = this.basketList.querySelectorAll('button');
+
+            // basketItems.forEach((item) => {
+            //     item.addEventListener('click', (event) => {
+            //         const targetItem = event.currentTarget;
+            //         console.log('클릭');
+            //         console.log(targetItem.dataset.item);
+            //     })
+            // })
+            // basketItems.addEventListener('click', (event) => {
+            //     console.log('클릭');
+            // })
+            
 
             // 구매한 아이템 리스트를 순환하며 총 금액 계산
             this.gotList.querySelectorAll('li').forEach((gotItem) => {
