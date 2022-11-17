@@ -1,14 +1,16 @@
 # ☕️ Starbucks Vending-Machine
 
+![vendingmachine](https://user-images.githubusercontent.com/72817156/202432530-64ce5c34-a649-49e2-9c22-3ca9d447702c.gif)
 
 ## 📝 About Project
-##### 스타벅스의 음료를 자판기로 뽑을 수 있도록 구현한 토이 프로젝트
+### 스타벅스의 음료를 자판기로 뽑을 수 있도록 구현한 토이 프로젝트
 - 웹 접근성을 위한 시멘틱 마크업 적용
 - 미디어 쿼리를 이용해 반응형 페이지로 퍼블리싱
-- 자판기의 동작을 이해하고, 자바스크립트로 기능 구현
 <br>
 
 ## 📕 Description
+<img width="1552" alt="스크린샷 2022-11-16 오전 3 32 55" src="https://user-images.githubusercontent.com/72817156/201998926-5cf4fe66-0efd-41d4-9088-2e2f4228376a.png">
+
 1. 소지금에 있는 돈을 확인하고, 입금액 입력폼에 소지금 범위 내의 돈을 입력하고 입금 버튼을 누릅니다.
 2. 잔액이 충전되면 음료를 고르고 해당 음료 버튼을 클릭합니다.
 3. 하단의 장바구니 목록에 선택한 음료가 추가되고, 동일한 음료를 여러 번 클릭하게 되면 수량이 증가합니다.
@@ -22,4 +24,3 @@
 ## 🪄 Tech Stack
 - `HTML/CSS`
 - `JavaScript`
-
