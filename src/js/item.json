@@ -3,13 +3,13 @@
         "name": "Espresso",
         "cost": 4000,
         "img": "Espresso.jpeg",
-        "count": 100
+        "count": 5
     },
     {
         "name": "Americano",
         "cost": 4500,
         "img": "Americano.jpeg",
-        "count": 100
+        "count": 5
     },
     {
         "name": "Latte",
