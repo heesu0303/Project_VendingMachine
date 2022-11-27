@@ -191,7 +191,7 @@ class VendingMachine {
             // 별 10개 달성시
             if (this.myItemCount >= 10) {
                 this.freeCnt = Math.floor(this.myItemCount / 10);
-                freeCoupon++;
+                freeCoupon = this.freeCnt;
                 this.imgStar.classList.add("star-active");
                 setTimeout(() => {
                     modal.style.display = "block";
@@ -229,10 +229,9 @@ class VendingMachine {
                             if (this.freeCnt !== 0) {
                                 item.querySelector(".freeIcon").setAttribute(
                                     "data-freecnt",
-                                    freeCoupon--
+                                    this.freeCnt - 1
                                 );
                                 this.freeCnt--;
-                                console.log("하.." + this.freeCnt);
                             }
                             if (this.freeCnt < 0) {
                                 this.freeCnt = 0;
