@@ -1,14 +1,18 @@
 # ☕️ Starbucks Vending-Machine
 
 ![vendingmachine](https://user-images.githubusercontent.com/72817156/202432530-64ce5c34-a649-49e2-9c22-3ca9d447702c.gif)
+<a href="https://heesu0303.github.io/ToyProject_VendingMachine/">▶️ 스타벅스 커피 뽑으러 가기</a>
 
 ## 📝 About Project
+
 ### 스타벅스의 음료를 자판기로 뽑을 수 있도록 구현한 토이 프로젝트
-- 웹 접근성을 위한 시멘틱 마크업 적용
-- 미디어 쿼리를 이용해 반응형 페이지로 퍼블리싱
-<br>
+
+-   웹 접근성을 위한 시멘틱 마크업 적용
+-   미디어 쿼리를 이용해 반응형 페이지로 퍼블리싱
+    <br>
 
 ## 📕 Description
+
 <img width="1552" alt="스크린샷 2022-11-16 오전 3 32 55" src="https://user-images.githubusercontent.com/72817156/201998926-5cf4fe66-0efd-41d4-9088-2e2f4228376a.png">
 
 1. 소지금에 있는 돈을 확인하고, 입금액 입력폼에 소지금 범위 내의 돈을 입력하고 입금 버튼을 누릅니다.
@@ -19,8 +23,9 @@
 6. 별 10개 기준 아메리카노 무료 쿠폰이 생성되면 별의 빙글빙글 돌아가는 애니메이션과 함께 무료 쿠폰이 생성되었다는 모달창을 확인할 수 있습니다.
 7. 모달창을 닫으면 음료 목록의 아메리카노 가격이 'Free'로 바뀌고, 보유하고 있는 쿠폰 개수를 확인할 수 있습니다.
 8. 가격이 Free 상태인 아메리카노를 클릭하면 0원으로 계산되어 현재 잔액에 변동이 없고, 획득을 클릭했을 때에도 총 금액은 아메리카노의 가격이 계산되지 않습니다.
-<br>
+   <br>
 
 ## 🪄 Tech Stack
-- `HTML/CSS`
-- `JavaScript`
+
+-   `HTML/CSS`
+-   `JavaScript`
