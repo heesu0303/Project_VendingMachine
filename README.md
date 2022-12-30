@@ -1,7 +1,7 @@
 # ☕️ Starbucks Vending-Machine
 
 ![vendingmachine](https://user-images.githubusercontent.com/72817156/202432530-64ce5c34-a649-49e2-9c22-3ca9d447702c.gif)
-<a href="https://heesu0303.github.io/ToyProject_VendingMachine/">▶️ 스타벅스 커피 뽑으러 가기</a>
+<a href="https://heesu0303.github.io/Project_VendingMachine/">▶️ 스타벅스 커피 뽑으러 가기</a>
 <br><br>
 
 ## 📝 About Project
